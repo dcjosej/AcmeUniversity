@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * security.xml * * Copyright (C) 2014 Universidad de Sevilla * Author 
+	(A) 2012 Rafael Corchuelo (corchu@us.es) * * The use of this project is hereby 
+	constrained to the conditions of the * TDG Licence, a copy of which you may 
+	download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+
+	<!-- Security infrastructure -->
+
+	<bean id="loginService" class="security.LoginService" />
+	<!-- Added 29/05/2014 -->
+	
+	<bean id="socialLoginService" class="security.SocialLoginService" />
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<!-- Access control -->
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/" access="permitAll" />
+
+		<security:intercept-url pattern="/favicon.ico"
+			access="permitAll" />
+		<security:intercept-url pattern="/images/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/scripts/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/styles/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/terms/**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/auth/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/signup/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/connect/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/security/googleLogin.do"
+			access="permitAll" />
+
+
+		<security:intercept-url pattern="/views/misc/index.jsp"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/security/login.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/security/loginFailure.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/security/register/student.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/security/register/tutor.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/security/register/lecturer.do"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/welcome/index.do"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/application/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/application/accept.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/application/decline.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/degree/create.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/degree/edit.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/admin/dashboard.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/subject/create.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/subject/edit.do"
+			access="hasAnyRole('ADMIN', 'LECTURER')" />
+
+		<security:intercept-url pattern="/tutorial/detail.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/tutorial/create.do"
+			access="hasRole('TUTOR')" />
+		<security:intercept-url pattern="/tutorial/edit.do"
+			access="hasRole('TUTOR')" />
+
+		<security:intercept-url pattern="/tutor/listTutors.do"
+			access="hasRole('LECTURER')" />
+		<security:intercept-url pattern="/subject/register.do"
+			access="hasRole('LECTURER')" />
+
+		<security:intercept-url pattern="/tutorial/detail.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/profile/action-1.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/profile/action-2.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/profile/action-3.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/degree/list.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/tutorial/register.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/degree/listMyDegrees.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/degree/enrols.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/slot/timetable.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/teacher/assess.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/teacher/bestRated.do"
+			access="hasRole('STUDENT')" />
+
+		<security:intercept-url pattern="/subject/list.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/subject/details.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/lectureNote/uploadFile.do"
+			access="hasRole('STUDENT')" />
+		<security:intercept-url pattern="/lectureNote/download.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/lectureNote/details.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/degree/list.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/comment/create.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/comment/edit.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/privatemessage/send.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/privatemessage/create.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/privatemessage/received.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/privatemessage/details.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/privatemessage/reply.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/teacher/details.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/teacher/photo.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/teacher/myProfile.do"
+			access="hasAnyRole('TUTOR', 'LECTURER')" />
+		<security:intercept-url pattern="/teacher/edit.do"
+			access="hasAnyRole('TUTOR', 'LECTURER')" />
+
+		<security:intercept-url pattern="/lecture/details.do"
+			access="hasAnyRole('STUDENT', 'LECTURER')" />
+		<security:intercept-url pattern="/lecture/register.do"
+			access="hasRole('STUDENT')" />
+
+		<security:intercept-url pattern="/verification/create.do"
+			access="hasRole('LECTURER')" />
+		<security:intercept-url pattern="/verification/edit.do"
+			access="hasRole('LECTURER')" />
+		<security:intercept-url pattern="/verification/details.do"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/**"
+			access="hasRole('NONE')" />
+
+		<security:form-login login-page="/security/login.do"
+			password-parameter="password" username-parameter="username"
+			authentication-failure-url="/security/loginFailure.do" />
+
+		<security:logout logout-success-url="/"
+			invalidate-session="true" delete-cookies="JESSIONID" />
+
+		<!-- Added 28/05/2014 -->
+		<!-- Adds social authentication filter to the Spring Security filter chain. -->
+		<security:custom-filter ref="socialAuthenticationFilter"
+			before="PRE_AUTH_FILTER" />
+	</security:http>
+
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="oAuthProvider" />
+	</security:authentication-manager>
+
+	<!-- Added 28/05/2014 -->
+
+	<!-- Configures the social authentication filter which integrates Spring 
+		Social with Spring Security. -->
+
+	<bean id="socialAuthenticationFilter"
+		class="org.springframework.social.security.SocialAuthenticationFilter">
+		<constructor-arg index="0" ref="authenticationManager" />
+		<constructor-arg index="1" ref="userIdSource" />
+		<constructor-arg index="2" ref="usersConnectionRepository" />
+		<constructor-arg index="3" ref="connectionFactoryLocator" />
+		
+		<property name="signupUrl" value="/security/googleLogin.do" />
+	</bean>
+
+	<!-- Configures the social authentication provider which processes authentication 
+		requests made by using supported social authentication services (FB, Twitter 
+		and so on). -->
+		
+
+	<bean id="socialAuthenticationProvider"
+		class="org.springframework.social.security.SocialAuthenticationProvider">
+		<constructor-arg index="0" ref="usersConnectionRepository" />
+		<constructor-arg index="1" ref="socialLoginService" />
+	</bean>
+
+	<bean id="usersConnectionRepository"
+		class="org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository">
+		<constructor-arg ref="dataSource" />
+		<constructor-arg ref="connectionFactoryLocator" />
+		<constructor-arg ref="textEncryptor" />
+	</bean>
+
+	<bean id="connectionRepository" factory-method="createConnectionRepository"
+		factory-bean="usersConnectionRepository" scope="request">
+		<constructor-arg value="#{request.userPrincipal.name}" />
+		<aop:scoped-proxy proxy-target-class="false" />
+	</bean>
+
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+		factory-method="noOpText" />
+
+	<bean id="userIdSource"
+		class="org.springframework.social.security.AuthenticationNameUserIdSource" />
+
+</beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2014 Universidad de Sevilla
+ *
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="security/login" extends="master.page">
+		<put-attribute name="title" value="Entrada en el sistema" />
+		<put-attribute name="body" value="/views/security/login.jsp" />
+	</definition>
+	
+	<definition name="register/student" extends="master.page">
+		<put-attribute name="title" value="Registrarse como estudiandte" />
+		<put-attribute name="body" value="/views/security/student.jsp" />
+	</definition>
+		
+	<definition name="register/tutor" extends="master.page">
+		<put-attribute name="title" value="Registrarse como profesor particular" />
+		<put-attribute name="body" value="/views/security/tutor.jsp" />
+	</definition>
+		
+	<definition name="register/lecturer" extends="master.page">
+		<put-attribute name="title" value="Registrarse como profesor" />
+		<put-attribute name="body" value="/views/security/lecturer.jsp" />
+	</definition>
+	
+	<definition name="register/registration" extends="master.page">
+		<put-attribute name="title" value="Registro" />
+		<put-attribute name="body" value="/views/security/registration.jsp" />
+	</definition>
+	
+		
+</tiles-definitions>

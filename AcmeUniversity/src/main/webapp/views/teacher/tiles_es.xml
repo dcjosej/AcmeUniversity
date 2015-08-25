@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2013 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="teacher/details" extends="master.page">	
+		<put-attribute name="title" value="Detalles del docente" />
+		<put-attribute name="body" value="/views/teacher/details.jsp" />
+	</definition>
+	
+	<definition name="teacher/bestRated" extends="master.page">	
+		<put-attribute name="title" value="Profesores mejor valorados" />
+		<put-attribute name="body" value="/views/teacher/bestRated.jsp" />
+	</definition>
+	
+	<definition name="teacher/edit" extends="master.page">	
+		<put-attribute name="title" value="Edición del docente" />
+		<put-attribute name="body" value="/views/teacher/edit.jsp" />
+	</definition>
+	
+	<definition name="assessment/edit" extends="master.page">	
+		<put-attribute name="title" value="Edición de una valoración" />
+		<put-attribute name="body" value="/views/teacher/assessmentEdit.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>
